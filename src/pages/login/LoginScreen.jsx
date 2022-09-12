@@ -5,10 +5,12 @@ import { api } from "../../services/api";
 import { Button, Container, Form, Header, Logo, Redirect } from "./styles";
 import { BsFillLockFill } from "react-icons/bs";
 import Swal from "sweetalert2";
+import Loader from "../../shared/loading/Loader";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   if (user !== null) {
     navigate("/home");
@@ -21,7 +23,7 @@ export default function LoginScreen() {
 
   function login(e) {
     e.preventDefault();
-
+    setLoading(true);
     api
       .post("signin", { ...userLogin })
       .then((res) => {
@@ -38,8 +40,10 @@ export default function LoginScreen() {
           timer: 2500,
         });
         navigate("/home");
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         Swal.fire({
           icon: "error",
           title: "Login inválido!",
@@ -53,6 +57,7 @@ export default function LoginScreen() {
   }
   return (
     <Container>
+      {loading ? <Loader /> : <></>}
       <Header>
         <BsFillLockFill className="icon-lock"></BsFillLockFill>
       </Header>
