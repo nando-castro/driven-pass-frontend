@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
 
   div {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 `;
 
@@ -50,7 +50,9 @@ export const Logo = styled.div`
 
 export const Form = styled.form`
   width: 100%;
-  height: 90%;
+  height: auto;
+  margin-top: 20px;
+  padding: 30px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,8 +84,7 @@ export const Form = styled.form`
 export const Button = styled.div`
   width: 250px;
   height: 40px;
-  margin-bottom: -16px;
-
+  margin-bottom: 16px;
   background: #9bfbb0;
   border: 3px solid #9bfbb0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);

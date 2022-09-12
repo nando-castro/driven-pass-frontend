@@ -4,6 +4,7 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import { Button, Container, Form, Header, Logo, Redirect } from "./styles";
 import { BsFillLockFill } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
@@ -25,15 +26,26 @@ export default function LoginScreen() {
       .post("signin", { ...userLogin })
       .then((res) => {
         setUser(res.data);
-        navigate("/home");
-
         const person = {
           token: res.data.token,
         };
         localStorage.setItem("userLogged", JSON.stringify(person));
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Aguarde! Você será redirecionado para a página principal!",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        navigate("/home");
       })
       .catch((err) => {
-        console.log("email ou senha inválidos");
+        Swal.fire({
+          icon: "error",
+          title: "Login inválido!",
+          text: "Confira o seu nome de usuário e senha para validar o seu acesso.",
+          confirmButtonColor: "#9BFBB0",
+        });
       });
   }
   function changeInput(e) {
@@ -61,7 +73,9 @@ export default function LoginScreen() {
           onChange={changeInput}
         />
       </Form>
-      <Button onClick={login}>Acessar</Button>
+      <Button className="button-login" onClick={login}>
+        Acessar
+      </Button>
       <Redirect>
         <main></main>
         <Link to="/signup">Primeiro acesso? Crie sua conta!</Link>

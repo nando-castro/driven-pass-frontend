@@ -3,6 +3,7 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import { Button, Container, Form, Header, Logo } from "./styles";
 import { BsFillLockFill } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 export default function RegisterScreen() {
   const navigate = useNavigate();
@@ -17,16 +18,38 @@ export default function RegisterScreen() {
     api
       .post("/signup", { ...userRegister })
       .then(() => {
-        alert("Cadastro realizado com sucesso!");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Cadastro realizado com sucesso!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         navigate("/");
       })
-      .catch((res, err) => {
-        console.log(err);
+      .catch((err) => {
+        if (err.response.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Usuário já existe",
+            confirmButtonColor: "#9BFBB0",
+          });
+          return;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Preencha os campos corretamente!",
+          confirmButtonColor: "#9BFBB0",
+        });
       });
   }
 
   function changeInput(e) {
     setUserregister({ ...userRegister, [e.target.name]: e.target.value });
+  }
+
+  function back() {
+    navigate("/");
   }
 
   return (
@@ -52,7 +75,9 @@ export default function RegisterScreen() {
         />
         <div>
           <Button onClick={register}>Criar</Button>
-          <Button className="back">Voltar</Button>
+          <Button className="back" onClick={back}>
+            Voltar
+          </Button>
         </div>
       </Form>
     </Container>
