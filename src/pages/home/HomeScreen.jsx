@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Header from "../../shared/header/Header";
 import { Container } from "./styles";
 
 export default function HomeScreen() {
@@ -10,6 +11,7 @@ export default function HomeScreen() {
   }
   return (
     <Container>
+      <Header />
       <button onClick={exitApp}>Deslogar</button>
     </Container>
   );

@@ -1,11 +1,20 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 375px;
-  max-width: 100%;
-  height: 100vh;
+  height: 59px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background-color: blue;
+  justify-content: center;
+
+  font-family: "Righteous";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 45px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.012em;
+
+  color: #005985;
 `;

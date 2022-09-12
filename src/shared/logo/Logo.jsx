@@ -1,5 +1,11 @@
 import { Container } from "./styles";
+import { BsFillLockFill } from "react-icons/bs";
 
-export default function Logo({ text }) {
-  return <Container>Logo</Container>;
+export default function Logo() {
+  return (
+    <Container>
+      <BsFillLockFill className="icon" />
+      DrivenPass
+    </Container>
+  );
 }
