@@ -1,3 +1,5 @@
+import { Container } from "./styles";
+
 export default function HomeScreen() {
-  return <>Home</>;
+  return <Container>Home</Container>;
 }
