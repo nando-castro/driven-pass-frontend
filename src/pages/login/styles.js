@@ -114,4 +114,19 @@ export const Redirect = styled.footer`
   align-items: center;
   justify-content: center;
   padding: 40px;
+
+  font-family: "Recursive";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+
+  text-align: center;
+  text-decoration-line: underline;
+
+  color: #000000;
+
+  a {
+    color: #000;
+  }
 `;

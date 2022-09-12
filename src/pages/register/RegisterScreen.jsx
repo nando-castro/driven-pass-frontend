@@ -3,6 +3,7 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import { Button, Container, Form, Header, Logo } from "./styles";
 import { BsFillLockFill } from "react-icons/bs";
+import { VscChevronLeft } from "react-icons/vsc";
 import Swal from "sweetalert2";
 
 export default function RegisterScreen() {
@@ -76,6 +77,7 @@ export default function RegisterScreen() {
         <div>
           <Button onClick={register}>Criar</Button>
           <Button className="back" onClick={back}>
+            <VscChevronLeft className="icon-arrow" />
             Voltar
           </Button>
         </div>

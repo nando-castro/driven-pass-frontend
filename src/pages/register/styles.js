@@ -11,6 +11,11 @@ export const Container = styled.div`
   div {
     margin-top: 15px;
   }
+
+  div .back {
+    background-color: #fb9b9b;
+    border: 3px solid #fb9b9b;
+  }
 `;
 
 export const Header = styled.div`
@@ -85,13 +90,12 @@ export const Button = styled.div`
   width: 250px;
   height: 40px;
   margin-bottom: 16px;
-  background: #9bfbb0;
+  background-color: #9bfbb0;
   border: 3px solid #9bfbb0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -103,8 +107,8 @@ export const Button = styled.div`
 
   color: #000000;
 
-  .back {
-    background: #fb9b9b;
-    border: 3px solid #fb9b9b;
+  .icon-arrow {
+    font-size: 20px;
+    margin-right: 5px;
   }
 `;
