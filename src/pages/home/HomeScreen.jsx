@@ -1,18 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../../shared/header/Header";
-import { Container } from "./styles";
+import { ButtonAdd, Container } from "./styles";
+import Credential from "../../components/credential/Credential";
+import Note from "../../components/note/Note";
+import Card from "../../components/card/Card";
+import Network from "../../components/network/Network";
 
 export default function HomeScreen() {
   const navigate = useNavigate();
-  function exitApp() {
-    navigate("/");
-    localStorage.clear();
-    window.location.reload();
-  }
   return (
     <Container>
       <Header />
-      <button onClick={exitApp}>Deslogar</button>
+      <Credential />
+      <Note />
+      <Card />
+      <Network />
+      <ButtonAdd>+</ButtonAdd>
     </Container>
   );
 }
