@@ -10,13 +10,10 @@ import Category from "../../components/categories/Category";
 export default function HomeScreen() {
   const [openCreate, setOpenCreate] = useState(false);
 
-  console.log(openCreate);
-
   return (
     <Container>
       {openCreate ? (
         <>
-          <Header text={"Categorias"} />
           <Category />
           <Footer>
             <BackHome onClick={() => setOpenCreate(false)}>
