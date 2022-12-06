@@ -15,6 +15,8 @@ export const Footer = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
+
+  background-color: #ffffff;
 `;
 
 export const ButtonAdd = styled.div`
