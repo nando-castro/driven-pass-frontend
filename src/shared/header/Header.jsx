@@ -3,7 +3,7 @@ import { IoExit } from "react-icons/io5";
 import Logo from "../logo/Logo";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ text }) {
   const navigate = useNavigate();
   function exitApp() {
     navigate("/");
@@ -16,7 +16,7 @@ export default function Header() {
         <Logo />
         <IoExit className="icon" onClick={exitApp} />
       </Top>
-      <BarBottom>Minhas Senhas</BarBottom>
+      <BarBottom>{text}</BarBottom>
     </Container>
   );
 }

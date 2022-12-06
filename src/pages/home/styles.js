@@ -8,6 +8,15 @@ export const Container = styled.div`
   margin-top: 120px;
 `;
 
+export const Footer = styled.div`
+  width: 100%;
+  height: 90px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+`;
+
 export const ButtonAdd = styled.div`
   width: 61px;
   height: 61px;
@@ -27,4 +36,28 @@ export const ButtonAdd = styled.div`
   color: #ffffff;
   font-size: 45px;
   font-weight: bold;
+`;
+
+export const BackHome = styled.p`
+  width: 90px;
+  height: 61px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  left: 10px;
+  bottom: 16px;
+
+  font-family: "Recursive";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+
+  text-align: center;
+  text-decoration-line: underline;
+
+  color: #000000;
 `;
