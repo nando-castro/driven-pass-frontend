@@ -1,7 +1,8 @@
 import Header from "../header/Header";
 import Input from "../../components/input/Input";
-import { Container, Description, Form, Text } from "./styles";
+import { Button, Container, Description, Form, Text } from "./styles";
 import { useState } from "react";
+import { api } from "../../services/api";
 
 export default function FormNetwork() {
   const [network, setNetwork] = useState({
@@ -9,6 +10,29 @@ export default function FormNetwork() {
     name: "",
     password: "",
   });
+
+  const { token } = JSON.parse(localStorage.getItem("userLogged"));
+
+  function handleCreateNetwork(e) {
+    e.preventDefault();
+
+    const CONFIG = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    console.log(CONFIG);
+
+    api
+      .post("/network", { ...network }, CONFIG)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function changeInput(e) {
     setNetwork({ ...network, [e.target.name]: e.target.value });
@@ -40,6 +64,7 @@ export default function FormNetwork() {
           onChange={changeInput}
         />
       </Form>
+      <Button onClick={handleCreateNetwork}>\/</Button>
     </Container>
   );
 }

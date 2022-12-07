@@ -1,34 +1,53 @@
 import { useState } from "react";
 import Input from "../../components/input/Input";
+import { api } from "../../services/api";
 import Header from "../header/Header";
-import { Container, Description, Form, Text } from "./styles";
+import { Button, Container, Description, Form, Text } from "./styles";
 
 export default function FormCard() {
-  const [isVirtual, setIsVirtual] = useState(null);
-  const [cardType, setCardType] = useState("");
+  const [cardVirtual, setCardVirtual] = useState("");
+  const [isVirtual, setIsVirtual] = useState("");
+  const [type, setType] = useState("");
   const [card, setCard] = useState({
     title: "",
-    number: "",
-    cardHolderName: "",
+    numero: "",
+    cardholderName: "",
     password: "",
     securityCode: "",
     expirationDate: "",
     isVirtual: isVirtual,
-    type: cardType,
+    type: type,
   });
+
+  const { token } = JSON.parse(localStorage.getItem("userLogged"));
+
+  // const parseBool = (value) => eval(value);
+
+  function handleCreateCard(e) {
+    e.preventDefault();
+
+    const CONFIG = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const newData = { ...card, isVirtual, type };
+
+    api
+      .post("/card", { ...newData }, CONFIG)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function changeInput(e) {
     setCard({ ...card, [e.target.name]: e.target.value });
   }
-  function changeTypeCard(e) {
-    setCardType({ ...cardType, [e.target.name]: e.target.value });
-  }
-  function changeVirtual(e) {
-    setIsVirtual({ ...isVirtual, [e.target.name]: e.target.value });
-  }
 
-  console.log(card);
-  console.log(isVirtual);
   return (
     <Container>
       <Header text={"Cartão"} />
@@ -43,16 +62,16 @@ export default function FormCard() {
         />
         <Description>Número</Description>
         <Input
-          type={"number"}
-          value={card.number}
-          name={"number"}
+          type={"numero"}
+          value={card.numero}
+          name={"numero"}
           onChange={changeInput}
         />
         <Description>Nome no Cartão</Description>
         <Input
           type={"text"}
-          value={card.cardHolderName}
-          name={"nameHolderName"}
+          value={card.cardholderName}
+          name={"cardholderName"}
           onChange={changeInput}
         />
         <Description>Senha</Description>
@@ -77,19 +96,28 @@ export default function FormCard() {
           onChange={changeInput}
         />
         <Description>O cartão é virtual?</Description>
-        <select onChange={changeVirtual}>
+        <select
+          onChange={(e) => {
+            e.target.value === "true"
+              ? setIsVirtual(true)
+              : e.target.value === "false"
+              ? setIsVirtual(false)
+              : setIsVirtual(null);
+          }}
+        >
           <option />
           <option value={true}>Sim</option>
           <option value={false}>Não</option>
         </select>
         <Description>Tipo do Cartão</Description>
-        <select onChange={changeTypeCard}>
+        <select onChange={(e) => setType(e.target.value)}>
           <option />
           <option value={"credit"}>Crédito</option>
           <option value={"debit"}>Débito</option>
-          <option value={"credit_debit"}>Crédito e Débito</option>
+          <option value={"debit_credit"}>Crédito e Débito</option>
         </select>
       </Form>
+      <Button onClick={handleCreateCard}>\/</Button>
     </Container>
   );
 }

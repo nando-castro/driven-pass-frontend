@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Input from "../../components/input/Input";
+import { api } from "../../services/api";
 import Header from "../header/Header";
-import { Container, Description, Form, Text } from "./styles";
+import { Button, Container, Description, Form, Text } from "./styles";
 
 export default function FormCredential() {
   const [credential, setCredential] = useState({
@@ -11,6 +12,28 @@ export default function FormCredential() {
     password: "",
   });
 
+  const { token } = JSON.parse(localStorage.getItem("userLogged"));
+
+  function handleCreateCredential(e) {
+    e.preventDefault();
+
+    const CONFIG = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    console.log(CONFIG);
+
+    api
+      .post("/credential", { ...credential }, CONFIG)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   function changeInput(e) {
     setCredential({ ...credential, [e.target.name]: e.target.value });
   }
@@ -48,6 +71,7 @@ export default function FormCredential() {
           onChange={changeInput}
         />
       </Form>
+      <Button onClick={handleCreateCredential}>\/</Button>
     </Container>
   );
 }

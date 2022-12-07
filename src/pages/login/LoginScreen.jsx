@@ -27,6 +27,7 @@ export default function LoginScreen() {
     api
       .post("signin", { ...userLogin })
       .then((res) => {
+        console.log(res.data);
         setUser(res.data);
         const person = {
           token: res.data.token,

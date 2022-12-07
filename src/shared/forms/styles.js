@@ -52,3 +52,26 @@ export const Description = styled.p`
 
   color: #222222;
 `;
+
+export const Button = styled.div`
+  width: 61px;
+  height: 61px;
+
+  background-color: #005985;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50px;
+
+  position: fixed;
+  right: 10px;
+  bottom: 16px;
+
+  color: #ffffff;
+  font-size: 45px;
+  font-weight: bold;
+
+  z-index: 2;
+`;
