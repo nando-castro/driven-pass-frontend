@@ -21,8 +21,6 @@ export default function FormCard() {
 
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
-  // const parseBool = (value) => eval(value);
-
   function handleCreateCard(e) {
     e.preventDefault();
 
