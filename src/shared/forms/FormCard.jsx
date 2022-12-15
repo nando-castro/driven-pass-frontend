@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Input from "../../components/input/Input";
+import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import Header from "../header/Header";
+import Loader from "../loading/Loader";
 import { Button, Container, Description, Form, Text } from "./styles";
 
 export default function FormCard() {
-  const [cardVirtual, setCardVirtual] = useState("");
   const [isVirtual, setIsVirtual] = useState("");
   const [type, setType] = useState("");
   const [card, setCard] = useState({
@@ -18,11 +19,14 @@ export default function FormCard() {
     isVirtual: isVirtual,
     type: type,
   });
+  const [loading, setLoading] = useState(false);
+  const { setOpenCreate } = useAuth();
 
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
   function handleCreateCard(e) {
     e.preventDefault();
+    setLoading(true);
 
     const CONFIG = {
       headers: {
@@ -35,10 +39,12 @@ export default function FormCard() {
     api
       .post("/card", { ...newData }, CONFIG)
       .then((res) => {
-        console.log(res.data);
+        setOpenCreate(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   }
 
@@ -116,6 +122,7 @@ export default function FormCard() {
         </select>
       </Form>
       <Button onClick={handleCreateCard}>\/</Button>
+      {loading ? <Loader /> : <></>}
     </Container>
   );
 }

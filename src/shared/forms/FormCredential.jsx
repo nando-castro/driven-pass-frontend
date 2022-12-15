@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Input from "../../components/input/Input";
+import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import Header from "../header/Header";
+import Loader from "../loading/Loader";
 import { Button, Container, Description, Form, Text } from "./styles";
 
 export default function FormCredential() {
@@ -11,11 +13,15 @@ export default function FormCredential() {
     userName: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const { setOpenCreate } = useAuth();
 
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
   function handleCreateCredential(e) {
     e.preventDefault();
+
+    setLoading(true);
 
     const CONFIG = {
       headers: {
@@ -29,9 +35,12 @@ export default function FormCredential() {
       .post("/credential", { ...credential }, CONFIG)
       .then((res) => {
         console.log(res.data);
+        setOpenCreate(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   }
   function changeInput(e) {
@@ -72,6 +81,7 @@ export default function FormCredential() {
         />
       </Form>
       <Button onClick={handleCreateCredential}>\/</Button>
+      {loading ? <Loader /> : <></>}
     </Container>
   );
 }

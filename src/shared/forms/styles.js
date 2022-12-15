@@ -73,5 +73,7 @@ export const Button = styled.div`
   font-size: 45px;
   font-weight: bold;
 
+  cursor: pointer;
+
   z-index: 2;
 `;

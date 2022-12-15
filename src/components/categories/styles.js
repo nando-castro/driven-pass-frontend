@@ -17,6 +17,19 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  cursor: default;
+
+  :hover {
+    background-color: #005985;
+    p {
+      color: #ffffff;
+    }
+
+    .icon {
+      color: #ffffff;
+    }
+  }
 `;
 
 export const Icon = styled.div`

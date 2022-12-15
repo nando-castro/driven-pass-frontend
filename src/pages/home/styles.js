@@ -38,6 +38,8 @@ export const ButtonAdd = styled.div`
   color: #ffffff;
   font-size: 45px;
   font-weight: bold;
+
+  cursor: pointer;
 `;
 
 export const BackHome = styled.p`

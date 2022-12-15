@@ -3,17 +3,22 @@ import Input from "../../components/input/Input";
 import { Button, Container, Description, Form, Text } from "./styles";
 import { useState } from "react";
 import { api } from "../../services/api";
+import Loader from "../loading/Loader";
+import { useAuth } from "../../context/auth";
 
 export default function FormNote() {
   const [note, setNote] = useState({
     title: "",
     text: "",
   });
+  const [loading, setLoading] = useState(false);
+  const { setOpenCreate } = useAuth();
 
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
   function handleCreateNote(e) {
     e.preventDefault();
+    setLoading(true);
 
     const CONFIG = {
       headers: {
@@ -26,10 +31,12 @@ export default function FormNote() {
     api
       .post("/note", { ...note }, CONFIG)
       .then((res) => {
-        console.log(res.data);
+        setOpenCreate(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   }
 
@@ -57,6 +64,7 @@ export default function FormNote() {
         />
       </Form>
       <Button onClick={handleCreateNote}>\/</Button>
+      {loading ? <Loader /> : <></>}
     </Container>
   );
 }

@@ -3,6 +3,8 @@ import Input from "../../components/input/Input";
 import { Button, Container, Description, Form, Text } from "./styles";
 import { useState } from "react";
 import { api } from "../../services/api";
+import Loader from "../loading/Loader";
+import { useAuth } from "../../context/auth";
 
 export default function FormNetwork() {
   const [network, setNetwork] = useState({
@@ -10,11 +12,14 @@ export default function FormNetwork() {
     name: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const { setOpenCreate } = useAuth();
 
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
   function handleCreateNetwork(e) {
     e.preventDefault();
+    setLoading(true);
 
     const CONFIG = {
       headers: {
@@ -27,10 +32,12 @@ export default function FormNetwork() {
     api
       .post("/network", { ...network }, CONFIG)
       .then((res) => {
-        console.log(res.data);
+        setLoading(false);
+        setOpenCreate(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   }
 
@@ -65,6 +72,7 @@ export default function FormNetwork() {
         />
       </Form>
       <Button onClick={handleCreateNetwork}>\/</Button>
+      {loading ? <Loader /> : <></>}
     </Container>
   );
 }
