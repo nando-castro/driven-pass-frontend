@@ -5,6 +5,8 @@ import { api } from "../../services/api";
 import Header from "../header/Header";
 import Loader from "../loading/Loader";
 import { Button, Container, Description, Form, Text } from "./styles";
+import Swal from "sweetalert2";
+import { FaCheck } from "react-icons/fa";
 
 export default function FormCard() {
   const [isVirtual, setIsVirtual] = useState("");
@@ -40,10 +42,30 @@ export default function FormCard() {
       .post("/card", { ...newData }, CONFIG)
       .then((res) => {
         setOpenCreate(false);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Cartão cadastrado!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Titulo já existe",
+            confirmButtonColor: "#005985",
+          });
+          setLoading(false);
+          return;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Preencha os campos corretamente!",
+          confirmButtonColor: "#005985",
+        });
         setLoading(false);
       });
   }
@@ -121,7 +143,9 @@ export default function FormCard() {
           <option value={"debit_credit"}>Crédito e Débito</option>
         </select>
       </Form>
-      <Button onClick={handleCreateCard}>\/</Button>
+      <Button onClick={handleCreateCard}>
+        <FaCheck />
+      </Button>
       {loading ? <Loader /> : <></>}
     </Container>
   );

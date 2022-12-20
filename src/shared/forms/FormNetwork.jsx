@@ -5,6 +5,8 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import Loader from "../loading/Loader";
 import { useAuth } from "../../context/auth";
+import { FaCheck } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function FormNetwork() {
   const [network, setNetwork] = useState({
@@ -27,16 +29,34 @@ export default function FormNetwork() {
       },
     };
 
-    console.log(CONFIG);
-
     api
       .post("/network", { ...network }, CONFIG)
       .then((res) => {
         setLoading(false);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Rede Wifi cadastrada!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setOpenCreate(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Titulo já existe",
+            confirmButtonColor: "#005985",
+          });
+          setLoading(false);
+          return;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Preencha os campos corretamente!",
+          confirmButtonColor: "#005985",
+        });
         setLoading(false);
       });
   }
@@ -71,7 +91,9 @@ export default function FormNetwork() {
           onChange={changeInput}
         />
       </Form>
-      <Button onClick={handleCreateNetwork}>\/</Button>
+      <Button onClick={handleCreateNetwork}>
+        <FaCheck />
+      </Button>
       {loading ? <Loader /> : <></>}
     </Container>
   );

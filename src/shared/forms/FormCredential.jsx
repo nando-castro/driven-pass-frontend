@@ -5,6 +5,8 @@ import { api } from "../../services/api";
 import Header from "../header/Header";
 import Loader from "../loading/Loader";
 import { Button, Container, Description, Form, Text } from "./styles";
+import { FaCheck } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function FormCredential() {
   const [credential, setCredential] = useState({
@@ -29,17 +31,34 @@ export default function FormCredential() {
       },
     };
 
-    console.log(CONFIG);
-
     api
       .post("/credential", { ...credential }, CONFIG)
       .then((res) => {
-        console.log(res.data);
         setOpenCreate(false);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Credencial cadastrada!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Titulo já existe",
+            confirmButtonColor: "#005985",
+          });
+          setLoading(false);
+          return;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Preencha os campos corretamente!",
+          confirmButtonColor: "#005985",
+        });
         setLoading(false);
       });
   }
@@ -80,7 +99,9 @@ export default function FormCredential() {
           onChange={changeInput}
         />
       </Form>
-      <Button onClick={handleCreateCredential}>\/</Button>
+      <Button onClick={handleCreateCredential}>
+        <FaCheck />
+      </Button>
       {loading ? <Loader /> : <></>}
     </Container>
   );

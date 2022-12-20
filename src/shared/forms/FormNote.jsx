@@ -5,6 +5,8 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import Loader from "../loading/Loader";
 import { useAuth } from "../../context/auth";
+import { FaCheck } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function FormNote() {
   const [note, setNote] = useState({
@@ -26,16 +28,34 @@ export default function FormNote() {
       },
     };
 
-    console.log(CONFIG);
-
     api
       .post("/note", { ...note }, CONFIG)
       .then((res) => {
         setOpenCreate(false);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Nota cadastrada!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Titulo já existe",
+            confirmButtonColor: "#005985",
+          });
+          setLoading(false);
+          return;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Preencha os campos corretamente!",
+          confirmButtonColor: "#005985",
+        });
         setLoading(false);
       });
   }
@@ -63,7 +83,9 @@ export default function FormNote() {
           onChange={changeInput}
         />
       </Form>
-      <Button onClick={handleCreateNote}>\/</Button>
+      <Button onClick={handleCreateNote}>
+        <FaCheck />
+      </Button>
       {loading ? <Loader /> : <></>}
     </Container>
   );

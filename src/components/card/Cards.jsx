@@ -14,6 +14,7 @@ import Header from "../../shared/header/Header";
 import Loader from "../../shared/loading/Loader";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/auth";
+import { MdDelete } from "react-icons/md";
 
 export default function Cards() {
   const [cards, setCards] = useState([]);
@@ -189,7 +190,9 @@ export default function Cards() {
           </Data>
           <Footer>
             <BackHome onClick={() => setState(false)}>{"<"} Voltar</BackHome>
-            <ButtonDelete onClick={handleDelete}>X</ButtonDelete>
+            <ButtonDelete onClick={handleDelete}>
+              <MdDelete />
+            </ButtonDelete>
           </Footer>
         </>
       )}

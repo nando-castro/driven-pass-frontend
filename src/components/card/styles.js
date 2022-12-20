@@ -77,9 +77,11 @@ export const Item = styled.div`
 
 export const Data = styled.div`
   width: 100%;
-  margin-top: 430px;
 
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  margin-bottom: 100px;
 
   font-family: "Recursive";
   font-style: normal;
