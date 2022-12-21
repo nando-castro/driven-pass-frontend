@@ -1,3 +1,32 @@
+<div align="center">
+  
+# Driven Pass Front-End
+
+### Main technologies used:
+
+  <a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="nodejs" /></a>
+  <a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="typescript" /></a>
+<a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="javascript" /></a>
+ <a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="react" /></a>
+  <a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="styled" /></a>
+  <a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/-Express-010101?style=for-the-badge&logo=express&logoColor=white" alt="express" /></a>
+  <a href="#" target="blank"><img align="center" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="postgresql" /></a>
+  
+### Demonstration:
+  
+  https://driven-pass-frontend.vercel.app/
+  
+MOBILE
+    
+  ![drivenpassmobile](https://user-images.githubusercontent.com/75530766/208915652-4d36e440-9f60-48dc-9750-aba1b8dbe5b8.gif)
+
+DESKTOP
+  
+  ![drivenpassPC](https://user-images.githubusercontent.com/75530766/208916579-da9d9904-4fcc-45cc-bf5a-fa02a8aa0cb3.gif)
+
+
+</div>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
