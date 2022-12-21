@@ -7,7 +7,7 @@ import {
   Icon,
   Item,
 } from "./styles";
-import { BiWifi } from "react-icons/bi";
+import { HiPencil } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import Header from "../../shared/header/Header";
@@ -80,7 +80,7 @@ export default function Notes() {
       >
         <Item>
           <Icon>
-            <BiWifi className="icon" />
+            <HiPencil className="icon" />
           </Icon>
           <p>{i.title}</p>
         </Item>

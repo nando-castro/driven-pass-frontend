@@ -7,7 +7,7 @@ import {
   Icon,
   Item,
 } from "./styles";
-import { BiWifi } from "react-icons/bi";
+import { IoIosExit } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import Header from "../../shared/header/Header";
@@ -86,7 +86,7 @@ export default function Credentials() {
       >
         <Item>
           <Icon>
-            <BiWifi className="icon" />
+            <IoIosExit className="icon" />
           </Icon>
           <p>{i.title}</p>
         </Item>
