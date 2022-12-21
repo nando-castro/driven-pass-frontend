@@ -16,6 +16,12 @@ export const AuthProvider = (props) => {
     }
   }, []);
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("userLogged");
+    window.location.reload();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -27,6 +33,7 @@ export const AuthProvider = (props) => {
         setSelected,
         openCreate,
         setOpenCreate,
+        logout,
       }}
     >
       {props.children}

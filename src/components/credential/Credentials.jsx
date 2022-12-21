@@ -48,7 +48,6 @@ export default function Credentials() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           position: "center",
           icon: "success",

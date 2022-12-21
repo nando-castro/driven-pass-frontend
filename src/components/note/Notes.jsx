@@ -46,7 +46,6 @@ export default function Notes() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           position: "center",
           icon: "success",

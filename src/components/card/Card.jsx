@@ -5,10 +5,13 @@ import { useState } from "react";
 import { useAuth } from "../../context/auth";
 import { api } from "../../services/api";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Card() {
   const [cards, setCards] = useState([]);
-  const { setSelected } = useAuth();
+  const { setSelected, logout } = useAuth();
+  const navigate = useNavigate();
 
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
@@ -25,7 +28,17 @@ export default function Card() {
         setCards(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 401 || err.response.status === 500) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Ops, parece que correu um erro!",
+            showConfirmButton: false,
+            timer: 5000,
+          });
+          navigate("/");
+          logout();
+        }
       });
   }
 

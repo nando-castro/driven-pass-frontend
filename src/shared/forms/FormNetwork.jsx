@@ -7,6 +7,7 @@ import Loader from "../loading/Loader";
 import { useAuth } from "../../context/auth";
 import { FaCheck } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function FormNetwork() {
   const [network, setNetwork] = useState({
@@ -15,8 +16,8 @@ export default function FormNetwork() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const { setOpenCreate } = useAuth();
-
+  const { setOpenCreate, logout } = useAuth();
+  const navigate = useNavigate();
   const { token } = JSON.parse(localStorage.getItem("userLogged"));
 
   function handleCreateNetwork(e) {
@@ -43,6 +44,17 @@ export default function FormNetwork() {
         setOpenCreate(false);
       })
       .catch((err) => {
+        if (err.response.status === 401 || err.response.status === 500) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Ops, parece que correu um erro!",
+            showConfirmButton: false,
+            timer: 5000,
+          });
+          navigate("/");
+          logout();
+        }
         if (err.response.status === 409) {
           Swal.fire({
             icon: "error",
@@ -52,12 +64,14 @@ export default function FormNetwork() {
           setLoading(false);
           return;
         }
-        Swal.fire({
-          icon: "error",
-          title: "Preencha os campos corretamente!",
-          confirmButtonColor: "#005985",
-        });
-        setLoading(false);
+        if (err.response.status === 422) {
+          Swal.fire({
+            icon: "error",
+            title: "Preencha os campos corretamente!",
+            confirmButtonColor: "#005985",
+          });
+          setLoading(false);
+        }
       });
   }
 

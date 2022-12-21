@@ -51,7 +51,6 @@ export default function Cards() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -144,7 +143,6 @@ export default function Cards() {
           setState(false);
         })
         .catch((err) => {
-          console.log(err);
           setLoading(false);
         });
     }

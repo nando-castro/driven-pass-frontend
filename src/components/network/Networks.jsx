@@ -47,7 +47,6 @@ export default function Networks() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           position: "center",
           icon: "success",
